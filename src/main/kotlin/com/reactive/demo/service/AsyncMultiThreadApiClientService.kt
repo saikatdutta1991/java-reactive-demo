@@ -16,7 +16,7 @@ class AsyncMultiThreadApiClientService: ApiClientService() {
 
     private var logger = LoggerFactory.getLogger(AsyncMultiThreadApiClientService::class.java)
 
-    private val executor = Executors.newFixedThreadPool(2)
+    private val executor = Executors.newFixedThreadPool(100)
 
     private val client = HttpClient.newHttpClient()
 
