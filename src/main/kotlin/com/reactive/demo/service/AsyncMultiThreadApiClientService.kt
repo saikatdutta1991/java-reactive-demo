@@ -16,11 +16,11 @@ class AsyncMultiThreadApiClientService: ApiClientService() {
 
     private var logger = LoggerFactory.getLogger(AsyncMultiThreadApiClientService::class.java)
 
-    private val executor = Executors.newFixedThreadPool(100)
-
     private val client = HttpClient.newHttpClient()
 
     fun getData(): List<DataDto> {
+        val executor = Executors.newFixedThreadPool(100)
+
         val callables = numberOfRecordsIds
             .flatMap {
                 it.map {
@@ -33,7 +33,9 @@ class AsyncMultiThreadApiClientService: ApiClientService() {
 
 
         val futures = executor.invokeAll(callables)
-        return futures.map { it.get() }
+        val data = futures.map { it.get() }
+        executor.shutdown()
+        return data
     }
 
     fun getData(id: Int): DataDto {

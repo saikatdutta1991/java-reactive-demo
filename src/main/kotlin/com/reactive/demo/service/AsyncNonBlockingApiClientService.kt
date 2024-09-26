@@ -25,9 +25,7 @@ class AsyncNonBlockingApiClientService: ApiClientService() {
                 .flatMap {
                     it.map { "${fetchDataBaseEndpoint}/${it}" }
                         .map { uri -> async { getData(uri) ?: throw Exception("Failed to get data for ${uri}") } }
-                        .awaitAll()
-                }
-
+                }.awaitAll()
         }
     }
 

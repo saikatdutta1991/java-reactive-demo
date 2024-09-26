@@ -23,7 +23,7 @@ app.get('/users/:id', (req, res) => {
     username: getRandomString(8) // Generating a random username
   };
 
-  setTimeout(() => res.json(user), 500)
+  setTimeout(() => res.json(user), 1000)
 });
 
 // Start server
